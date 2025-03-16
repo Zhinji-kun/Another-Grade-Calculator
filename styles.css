@@ -1,6 +1,6 @@
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3f3f3;
+    font-family: "Poppins", sans-serif;
+    background-color: #f8f3ff;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -10,30 +10,54 @@ body {
 
 .container {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
     text-align: center;
+    border: 2px solid #663399;
+}
+
+h1, h2 {
+    color: #663399;
+}
+
+.input-group {
+    margin: 10px 0;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    color: #663399;
 }
 
 input {
     width: 100%;
     padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #f4c542;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 button {
-    background-color: #0078d4;
+    background-color: #663399;
     color: white;
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 16px;
     cursor: pointer;
+    width: 100%;
 }
 
 button:hover {
-    background-color: #005a9e;
+    background-color: #4a266a;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #663399;
+    font-size: 18px;
 }
