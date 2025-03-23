@@ -1,27 +1,50 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("calculateBtn").addEventListener("click", function () {
-        let java1 = parseFloat(document.getElementById("java1").value) || 0;
-        let java2 = parseFloat(document.getElementById("java2").value) || 0;
-        let js1 = parseFloat(document.getElementById("js1").value) || 0;
-        let js2 = parseFloat(document.getElementById("js2").value) || 0;
-        
-        let mp1 = parseFloat(document.getElementById("mp1").value) || 0;
-        let mp2 = parseFloat(document.getElementById("mp2").value) || 0;
-        let mp3 = parseFloat(document.getElementById("mp3").value) || 0;
-        let mp3Docu = parseFloat(document.getElementById("mp3Docu").value) || 0;
-        
-        let absences = parseInt(document.getElementById("absences").value) || 0;
-        
-        let attendance = Math.max(100 - (10 * absences), 0);
-        let labWork = (mp1 + mp2 + mp3 + mp3Docu) / 4;
-        let prelimClassStanding = (0.6 * labWork) + (0.4 * attendance);
-        let prelimExam = (0.2 * java1) + (0.3 * java2) + (0.2 * js1) + (0.3 * js2);
-        let prelimGrade = (0.6 * prelimExam) + (0.4 * prelimClassStanding);
+function calculateGrade() {
+    const essay = validateInput(document.getElementById("essay").value);
+    const pvm = validateInput(document.getElementById("pvm").value);
+    const javaBasics = validateInput(document.getElementById("javaBasics").value);
+    const jsIntro = validateInput(document.getElementById("jsIntro").value);
+    const exam = validateInput(document.getElementById("exam").value);
+    const absences = validateAbsences(document.getElementById("absences").value);
 
-        if (absences >= 4) {
-            prelimGrade = 0.00;
-        }
+    if (essay === null || pvm === null || javaBasics === null || jsIntro === null || exam === null || absences === null) {
+        return;
+    }
 
-        document.getElementById("result").innerText = `Prelim Grade: ${prelimGrade.toFixed(2)}%`;
-    });
-});
+    if (absences >= 4) {
+        document.getElementById("result").innerText = "Result: 0 (Failed due to absences)";
+        return;
+    }
+
+    const prelimQuizzes = (essay + pvm + javaBasics + jsIntro) / 4;
+    const attendanceScore = Math.max(0, 100 - (absences * 10));
+    const prelimClassStanding = (0.6 * prelimQuizzes) + (0.4 * attendanceScore);
+    const prelimGrade = (0.6 * exam) + (0.4 * prelimClassStanding);
+
+    document.getElementById("result").innerText = `Result: ${prelimGrade.toFixed(2)}`;
+}
+
+function validateInput(value) {
+    if (isNaN(value) || value.trim() === "") {
+        alert("Invalid input! Please enter a number.");
+        return null;
+    }
+    const num = parseFloat(value);
+    if (num < 0 || num > 100) {
+        alert("Invalid input! Enter a number between 0 and 100.");
+        return null;
+    }
+    return num;
+}
+
+function validateAbsences(value) {
+    if (isNaN(value) || value.trim() === "") {
+        alert("Invalid input! Please enter a number.");
+        return null;
+    }
+    const num = parseInt(value);
+    if (num < 0 || num > 10) {
+        alert("Invalid input! Absences must be between 0 and 10.");
+        return null;
+    }
+    return num;
+}
